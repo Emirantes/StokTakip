@@ -1,0 +1,33 @@
+﻿@model StokTakip.Models.Kategori
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0" style="border-radius: 12px;">
+        <div class="card-header bg-primary text-white py-3">
+            <h4 class="mb-0 fw-bold"><i class="bi bi-plus-circle me-2"></i>Yeni Kategori Ekle</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Create">
+                <div class="form-group mb-3">
+                    <label class="control-label fw-bold">Kategori Adı</label>
+                    <input asp-for="KategoriAd" class="form-control rounded-3" placeholder="Örn: Elektronik" />
+                    <span asp-validation-for="KategoriAd" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="form-label fw-bold">Açıklama</label>
+                    <textarea asp-for="Aciklama" class="form-control rounded-3" rows="3" placeholder="Bu kategori neyi kapsıyor?"></textarea>
+                    <span asp-validation-for="Aciklama" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success px-4 rounded-3">
+                        <i class="bi bi-check-lg me-1"></i> Ekle
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary px-4 rounded-3">
+                        <i class="bi bi-arrow-left me-1"></i> Geri Dön
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿@model StokTakip.Models.User
+@{
+    ViewData["Title"] = "Profilimi Düzenle";
+}
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Hesap Bilgileri</h5>
+    </div>
+    <div class="card-body p-4">
+        <form asp-action="UpdateProfile" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Kullanıcı Adı</label>
+                    <input type="text" class="form-control" asp-for="Username" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">E-Posta</label>
+                    <input type="email" class="form-control" asp-for="Email" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Ad Soyad</label>
+                    <input type="text" class="form-control" asp-for="FullName" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Şifre</label>
+                    <input asp-for="Password"
+                           class="form-control"
+                           type="password"
+                           value=""
+                           placeholder="Yeni şifre girin" />
+                </div>
+                <div class="col-md-12 mt-3">
+                    <button type="submit" class="btn btn-success">Değişiklikleri Kaydet</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

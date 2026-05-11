@@ -1,0 +1,126 @@
+﻿@model StokTakip.Models.Product
+@{
+    ViewData["Title"] = "Yeni Ürün Ekle";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Yeni Ürün Ekle</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Ürün Adı</label>
+                            <input asp-for="Name" class="form-control" placeholder="Ürün adını giriniz" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Fiyat</label>
+                            <input asp-for="Price"
+                                   class="form-control"
+                                   type="number"
+                                   step="0.01"
+                                   min="0" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Stok Adedi</label>
+                            <input asp-for="Stock"
+                                   class="form-control"
+                                   type="number"
+                                   min="0" />
+                            <span asp-validation-for="Stock" class="text-danger"></span>
+                        </div>
+
+                        @* KATEGORİ ARTIK FORMUN İÇİNDE *@
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Kategori</label>
+                            <div class="input-group">
+                                <select asp-for="KategoriId" class="form-select" id="kategoriSelect"
+                                        asp-items="ViewBag.KategoriListesi">
+                                    <option value="">-- Kategori Seçiniz --</option>
+                                </select>
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#hizliKategoriModal">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
+                            <span asp-validation-for="KategoriId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-success px-4">
+                                <i class="bi bi-save me-2"></i>Kaydet
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary px-4">Listeye Dön</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* MODAL BURADA (FORMUN DIŞINDA KALABİLİR) *@
+<div class="modal fade" id="hizliKategoriModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Yeni Kategori Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Yeni Kategori Adı</label>
+                    <input type="text" id="yeniKategoriAd" class="form-control" placeholder="Örn: Elektronik" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" id="btnKategoriKaydet" class="btn btn-primary">Hızlı Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#btnKategoriKaydet').click(function () {
+            var ad = $('#yeniKategoriAd').val();
+
+            if (ad.trim() === "") {
+                alert("Lütfen bir kategori adı girin.");
+                return;
+            }
+
+            $.ajax({
+                url: '/Kategori/HizliEkle',
+                type: 'POST',
+                data: { kategoriAd: ad },
+                success: function (response) {
+                    if (response.success) {
+                        // Dropdown'a ekle ve seçili yap
+                        $('#kategoriSelect').append($('<option>', {
+                            value: response.id,
+                            text: response.ad,
+                            selected: true
+                        }));
+                        $('#hizliKategoriModal').modal('hide');
+                        $('#yeniKategoriAd').val('');
+                    } else {
+                        alert("Hata: " + response.message);
+                    }
+                },
+                error: function () {
+                    alert("Bir hata oluştu. Controller içindeki 'HizliEkle' metodunu kontrol edin.");
+                }
+            });
+        });
+    </script>
+}

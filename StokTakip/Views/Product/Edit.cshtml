@@ -1,0 +1,40 @@
+﻿@model StokTakip.Models.Product
+@{
+    ViewData["Title"] = "Ürün Düzenle";
+}
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Ürün Bilgilerini Güncelle</h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <label class="form-label">Ürün Adı</label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fiyat</label>
+                <input asp-for="Price"
+                       class="form-control"
+                       type="number"
+                       step="0.01"
+                       min="0" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Stok Adedi</label>
+                <input asp-for="Stock"
+                       class="form-control"
+                       type="number"
+                       min="0" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Kategori</label>
+                <select asp-for="KategoriId" class="form-control" asp-items="ViewBag.KategoriListesi"></select>
+            </div>
+            <button type="submit" class="btn btn-success">Kaydet</button>
+            <a asp-action="Index" class="btn btn-secondary">İptal</a>
+        </form>
+    </div>
+</div>

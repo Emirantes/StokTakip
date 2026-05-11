@@ -1,0 +1,126 @@
+﻿@model IEnumerable<StokTakip.Models.Product>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">Ürün Yönetimi</h2>
+    <a asp-action="Create" class="btn btn-success"><i class="bi bi-plus-lg me-1"></i> Yeni Ürün Ekle</a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <form asp-action="Index" method="get" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="searchString" class="form-control" placeholder="Ürün adı ile ara..." />
+                <button type="submit" class="btn btn-primary px-4">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Ürün Adı</th>
+                        <th>Kategori</th>
+                        <th>Fiyat</th>
+                        <th>Stok Durumu</th>
+                        <th class="text-center">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">@item.Name</td>
+                            <td>@(item.Kategori?.KategoriAd ?? "-")</td>
+                            <td>
+                            @(item.Price.HasValue
+                            ? item.Price.Value.ToString("C2")
+                            : "-")
+                            </td>
+                            <td>
+                                @if (item.Stock != null && item.Stock < 10)
+                                {
+                                    <span class="badge bg-danger">Kritik: @item.Stock</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-light text-dark border">@item.Stock Adet</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm me-1">
+                                    <i class="bi bi-pencil"></i> Düzenle
+                                </a>
+                                <form asp-action="Delete"
+                                      asp-route-id="@item.Id"
+                                      method="post"
+                                      class="d-inline">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="button"
+                                            class="btn btn-outline-danger btn-sm"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal-@item.Id">
+
+                                        <i class="bi bi-trash"></i> Sil
+
+                                    </button>
+
+                                    <!-- MODAL -->
+                                    <div class="modal fade"
+                                         id="deleteModal-@item.Id"
+                                         tabindex="-1"
+                                         aria-hidden="true">
+
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content border-0 shadow">
+
+                                                <div class="modal-header bg-danger text-white">
+                                                    <h5 class="modal-title">
+                                                        Ürün Sil
+                                                    </h5>
+
+                                                    <button type="button"
+                                                            class="btn-close btn-close-white"
+                                                            data-bs-dismiss="modal">
+                                                    </button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <p class="mb-0">
+                                                        <strong>@item.Name</strong>
+                                                        ürününü silmek istediğinize emin misiniz?
+                                                    </p>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button"
+                                                            class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">
+
+                                                        Vazgeç
+                                                    </button>
+
+                                                    <button type="submit"
+                                                            class="btn btn-danger">
+
+                                                        Evet Sil
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+﻿@model StokTakip.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kayıt Ol</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0d6efd, #6610f2);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .register-card {
+            width: 450px;
+            margin: auto;
+            border: none;
+            border-radius: 20px;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .btn {
+            border-radius: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card register-card shadow-lg p-4">
+
+        <div class="text-center mb-4">
+            <i class="bi bi-person-plus-fill text-primary"
+               style="font-size:55px;"></i>
+
+            <h3 class="mt-2 fw-bold">
+                Hesap Oluştur
+            </h3>
+
+            <p class="text-muted">
+                Stok Takip Sistemine kayıt olun
+            </p>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form asp-action="Register" method="post">
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">
+                    Ad Soyad
+                </label>
+
+                <input asp-for="FullName"
+                       class="form-control"
+                       placeholder="Ad Soyad giriniz" />
+
+                <span asp-validation-for="FullName"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">
+                    Kullanıcı Adı
+                </label>
+
+                <input asp-for="Username"
+                       class="form-control"
+                       placeholder="Kullanıcı adı giriniz" />
+
+                <span asp-validation-for="Username"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">
+                    Email
+                </label>
+
+                <input asp-for="Email"
+                       type="email"
+                       class="form-control"
+                       placeholder="Email adresi giriniz" />
+
+                <span asp-validation-for="Email"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-semibold">
+                    Şifre
+                </label>
+
+                <input asp-for="Password"
+                       type="password"
+                       class="form-control"
+                       placeholder="Şifre oluşturunuz" />
+
+                <span asp-validation-for="Password"
+                      class="text-danger"></span>
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary w-100 mb-3">
+
+                <i class="bi bi-check-circle me-2"></i>
+                Kayıt Ol
+            </button>
+
+            <a asp-action="Login"
+               class="btn btn-outline-secondary w-100">
+
+                Zaten hesabım var
+            </a>
+
+        </form>
+    </div>
+
+</body>
+</html>
+

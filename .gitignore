@@ -1,0 +1,49 @@
+## Build Files
+bin/
+obj/
+
+## User Files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Visual Studio
+.vs/
+
+## Rider
+.idea/
+
+## ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+## Logs
+*.log
+
+## ASP.NET Core
+appsettings.Development.json
+
+## Database
+*.mdf
+*.ldf
+
+## Publish
+publish/
+
+## Node
+node_modules/
+
+## OS Files
+.DS_Store
+Thumbs.db
+
+## SQL Backup
+*.bak
+
+## Environment Files
+.env
+
+## Temporary Files
+tmp/
+temp/
