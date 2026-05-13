@@ -65,7 +65,8 @@ git clone https://github.com/KULLANICI_ADIN/stok-takip-sistemi.git
 
 ```json
 "ConnectionStrings": {
-  "DefaultConnection": "Server=DESKTOP-2O5K5CG\\SQLEXPRESS;Database=StokTakipDb;Trusted_Connection=True;TrustServerCertificate=True;"
+  "DefaultConnection": "Server=.;Database=StokTakipDb;
+  Trusted_Connection=True;TrustServerCertificate=True;"
 }
 ```
 
