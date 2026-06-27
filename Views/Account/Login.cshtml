@@ -1,0 +1,354 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1" />
+
+    <title>StokNova - Stok Takip ve Depo Yönetimi</title>
+
+    <meta name="description"
+          content="StokNova, işletmeler ve bireysel kullanıcılar için bulut tabanlı stok takip ve depo yönetim sistemidir." />
+
+    <meta name="robots"
+          content="index,follow" />
+
+    <link rel="canonical"
+          href="https://stoknova.com.tr/" />
+
+    <meta property="og:type"
+          content="website" />
+
+    <meta property="og:title"
+          content="StokNova" />
+
+    <meta property="og:description"
+          content="Bulut tabanlı stok takip ve depo yönetim sistemi." />
+
+    <meta property="og:url"
+          content="https://stoknova.com.tr/" />
+
+    <meta property="og:site_name"
+          content="StokNova" />
+
+    <meta name="twitter:card"
+          content="summary_large_image" />
+
+    <script type="application/ld+json">
+        {
+            "@@context": "https://schema.org",
+            "@@type": "Organization",
+            "name": "StokNova",
+            "url": "https://stoknova.com.tr",
+            "email": "admin@stoknova.com"
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@@context": "https://schema.org",
+            "@@type": "SoftwareApplication",
+            "name": "StokNova",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "url": "https://stoknova.com.tr",
+            "description": "Bulut tabanlı stok takip ve depo yönetim sistemi."
+        }
+    </script>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f1f5f9;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .left-side {
+            width: 50%;
+            background: linear-gradient(135deg,#111827,#1e293b);
+            color: white;
+            padding: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .brand-text {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .feature-item {
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(255,255,255,.05);
+            padding: 18px;
+            border-radius: 14px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+        }
+
+            .feature-item i {
+                font-size: 20px;
+            }
+
+        .right-side {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            background: white;
+            padding: 40px;
+            border-radius: 22px;
+            box-shadow: 0 10px 35px rgba(0,0,0,.08);
+        }
+
+        .login-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: #111827;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .login-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .login-subtitle {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            height: 52px;
+            border-radius: 12px;
+            border: 1px solid #dbe2ea;
+            box-shadow: none !important;
+        }
+
+            .form-control:focus {
+                border-color: #111827;
+            }
+
+        .btn-login {
+            height: 52px;
+            border: none;
+            border-radius: 12px;
+            background: #111827;
+            font-weight: 600;
+        }
+
+            .btn-login:hover {
+                background: #1e293b;
+            }
+
+        .btn-register {
+            height: 52px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .alert {
+            border: none;
+            border-radius: 12px;
+        }
+
+        @@media(max-width:991px) {
+
+            .left-side {
+                display: none;
+            }
+
+            .right-side {
+                width: 100%;
+            }
+
+            body {
+                overflow: auto;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login-wrapper">
+
+        <div class="left-side">
+
+            <h1 class="brand-title">
+                Stok Takip Sistemi
+            </h1>
+
+            <p class="brand-text">
+                Ürünlerinizi, stok durumlarını ve kategori yönetimini
+                tek panel üzerinden kolayca kontrol edin.
+            </p>
+
+            <div class="feature-item">
+                <i class="bi bi-box-seam"></i>
+                Ürün Yönetimi
+            </div>
+
+            <div class="feature-item">
+                <i class="bi bi-graph-up-arrow"></i>
+                Kritik Stok Takibi
+            </div>
+
+            <div class="feature-item">
+                <i class="bi bi-shield-lock"></i>
+                Güvenli Kullanıcı Sistemi
+            </div>
+
+        </div>
+
+        <div class="right-side">
+
+            <div class="login-card">
+
+                <div class="text-center mb-4">
+
+                    <div class="login-icon">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+
+                    <h3 class="login-title">
+                        Hoş Geldiniz
+                    </h3>
+
+                    <p class="login-subtitle">
+                        Hesabınız ile giriş yapın
+                    </p>
+
+                </div>
+
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @TempData["Error"]
+                    </div>
+                }
+
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["Success"]
+                    </div>
+                }
+
+                <form asp-action="Login" method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Kullanıcı Adı
+                        </label>
+
+                        <input type="text"
+                               name="username"
+                               class="form-control"
+                               autocomplete="username"
+                               required />
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Şifre
+                        </label>
+
+                        <input type="password"
+                               name="password"
+                               class="form-control"
+                               autocomplete="current-password"
+                               required />
+
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-dark btn-login w-100 mb-3">
+
+                        <i class="bi bi-box-arrow-in-right me-2"></i>
+                        Giriş Yap
+
+                    </button>
+
+                    <a asp-action="Register"
+                       class="btn btn-outline-dark btn-register w-100">
+
+                        Hesap Oluştur
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="text-center mt-4 text-muted"
+         style="font-size:14px;">
+        © 2026 Stok Takip Sistemi
+    </div>
+</body>
+</html>

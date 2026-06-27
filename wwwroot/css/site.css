@@ -1,0 +1,210 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  font-family: 'Inter', sans-serif;
+  background-color: #f8f9fa;
+  color: #334155;
+}
+
+.navbar {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e2e80 !important;
+}
+
+.table {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.btn {
+    white-space: nowrap;
+}
+
+.card {
+    border-radius: 8px !important;
+}
+
+.modal-content {
+    border-radius: 8px;
+}
+
+.table-responsive {
+    width: 100%;
+}
+
+@media (max-width: 767.98px) {
+    body {
+        margin-bottom: 0;
+    }
+
+    .container,
+    .container-fluid {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    h2,
+    .h2 {
+        font-size: 1.35rem;
+        line-height: 1.25;
+    }
+
+    h4,
+    .h4 {
+        font-size: 1.1rem;
+    }
+
+    .navbar-custom {
+        border-radius: 8px !important;
+        padding: 0.75rem !important;
+    }
+
+    .card-body {
+        padding: 1rem !important;
+    }
+
+    .row.g-4,
+    .row.g-3 {
+        --bs-gutter-y: 0.75rem;
+    }
+
+    .d-flex {
+        min-width: 0;
+    }
+
+    .btn,
+    .form-control,
+    .form-select,
+    .input-group-text {
+        min-height: 42px;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 100%;
+    }
+
+    .table {
+        min-width: 720px;
+        box-shadow: none;
+    }
+
+    .table td,
+    .table th {
+        padding: 0.75rem;
+    }
+
+    .modal-dialog {
+        margin: 0.75rem;
+    }
+
+    .border-start {
+        border-left: 0 !important;
+        border-top: 1px solid #dee2e6;
+        padding-top: 1rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .btn-action-wrapper,
+    .modal-footer,
+    .card-header,
+    form .d-flex.gap-2,
+    td .d-flex.gap-2 {
+        flex-wrap: wrap;
+    }
+
+    .modal-footer .btn,
+    form .d-flex.gap-2 > .btn,
+    form .d-flex.gap-2 > a.btn {
+        flex: 1 1 auto;
+    }
+}
+
+.table thead th {
+    background-color: #f1f5f9;
+    color: #64748b;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    border: none;
+    padding: 15px;
+}
+
+.table td {
+    padding: 15px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.table th {
+        color: #475569 !important;
+        font-weight: 600;
+}
+
+.btn-action-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.btn-action {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid transparent;
+}
+
+.btn-edit {
+    background-color: #f0fdf4;
+    color: #166534;
+    border-color: #dcfce7;
+}
+
+.btn-edit:hover {
+        background-color: #166534;
+        color: white;
+}
+
+.btn-delete {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border-color: #fee2e2;
+}
+
+.btn-delete:hover {
+        background-color: #991b1b;
+        color: white;
+}
+

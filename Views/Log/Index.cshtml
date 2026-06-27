@@ -1,0 +1,97 @@
+﻿@model IEnumerable<StokTakip.Models.Log>
+
+@{
+    ViewData["Title"] = "Sistem Logları";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow border-0">
+
+        <div class="card-header bg-dark text-white py-3">
+
+            <h4 class="mb-0">
+                <i class="bi bi-clock-history me-2"></i>
+                Sistem Logları
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            @if (Model.Any())
+            {
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead class="table-light">
+
+                            <tr>
+                                <th>ID</th>
+                                <th>İşlem</th>
+                                <th>Tarih</th>
+                                <th>Kullanıcı</th>
+                                <th>Rol</th>
+                                <th>IP</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        #@item.Id
+                                    </td>
+
+                                    <td>
+                                        @item.Islem
+                                    </td>
+
+                                    <td>
+                                        @item.Tarih.ToString("dd.MM.yyyy HH:mm")
+                                    </td>
+
+                                    <td>
+                                        @(item.KullaniciAdi ?? "-")
+                                    </td>
+
+                                    <td>
+                                        @(item.Rol ?? "-")
+                                    </td>
+
+                                    <td>
+                                        @(item.IpAddress ?? "-")
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5">
+
+                    <i class="bi bi-inbox fs-1 text-muted"></i>
+
+                    <p class="mt-3 text-muted">
+                        Henüz log kaydı bulunmuyor.
+                    </p>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>

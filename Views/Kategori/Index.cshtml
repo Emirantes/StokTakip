@@ -1,0 +1,302 @@
+﻿@model IEnumerable<StokTakip.Models.Kategori>
+
+@{
+    ViewData["Title"] = "Kategoriler";
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+
+    <div>
+
+        <h2 class="fw-bold mb-1">
+
+            <i class="bi bi-tags-fill text-primary me-2"></i>
+
+            Kategoriler
+
+        </h2>
+
+        <p class="text-muted mb-0">
+            Ürün kategorilerinizi düzenleyin ve yönetin.
+        </p>
+
+    </div>
+
+    @if (User.IsInRole("Owner") || User.IsInRole("Admin"))
+    {
+        <a asp-action="Create"
+           class="btn btn-primary shadow-sm px-4">
+
+            <i class="bi bi-plus-circle me-2"></i>
+
+            Yeni Kategori
+
+        </a>
+    }
+
+
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm border-0">
+
+        <i class="bi bi-check-circle-fill me-2"></i>
+
+        @TempData["Success"]
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm border-0">
+
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+        @TempData["Error"]
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+
+    </div>
+}
+
+<div class="card border-0 shadow-sm rounded-4">
+
+    <div class="card-body p-0">
+
+        <div class="table-responsive">
+
+            <table class="table align-middle table-hover mb-0">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th class="ps-4 py-3">
+                            Kategori
+                        </th>
+
+                        <th class="py-3">
+                            Açıklama
+                        </th>
+
+                        <th class="text-center py-3">
+                            İşlemler
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @if (Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td class="ps-4">
+
+                                    <div class="d-flex align-items-center">
+
+                                        <div class="bg-primary bg-opacity-10
+                                                            rounded-circle
+                                                            d-flex
+                                                            align-items-center
+                                                            justify-content-center
+                                                            me-3"
+                                             style="width:45px;height:45px;">
+
+                                            <i class="bi bi-tag-fill text-primary"></i>
+
+                                        </div>
+
+                                        <div>
+
+                                            <div class="fw-semibold text-dark">
+                                                @item.KategoriAd
+                                            </div>
+
+                                            <small class="text-muted">
+                                                Oluşturulma:
+                                                @item.CreatedDate.ToString("dd.MM.yyyy")
+                                            </small>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+                                <td>
+
+                                    @if (string.IsNullOrWhiteSpace(item.Aciklama))
+                                    {
+                                        <span class="badge bg-light text-secondary border">
+
+                                            Açıklama Yok
+
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">
+                                            @item.Aciklama
+                                        </span>
+                                    }
+
+                                </td>
+
+                                <td class="text-center">
+
+                                    <div class="d-flex justify-content-center gap-2">
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-outline-warning btn-sm">
+
+                                            <i class="bi bi-pencil-square me-1"></i>
+
+                                            Düzenle
+
+                                        </a>
+
+                                        <button type="button"
+                                                class="btn btn-outline-danger btn-sm"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#deleteModal-@item.Id">
+
+                                            <i class="bi bi-trash me-1"></i>
+
+                                            Sil
+
+                                        </button>
+
+                                    </div>
+
+                                    <!-- DELETE MODAL -->
+
+                                    <div class="modal fade"
+                                         id="deleteModal-@item.Id"
+                                         tabindex="-1"
+                                         aria-hidden="true">
+
+                                        <div class="modal-dialog modal-dialog-centered">
+
+                                            <div class="modal-content border-0 shadow">
+
+                                                <div class="modal-header bg-danger text-white">
+
+                                                    <h5 class="modal-title">
+
+                                                        Kategori Sil
+
+                                                    </h5>
+
+                                                    <button type="button"
+                                                            class="btn-close btn-close-white"
+                                                            data-bs-dismiss="modal">
+                                                    </button>
+
+                                                </div>
+
+                                                <div class="modal-body text-start">
+
+                                                    <p class="mb-2">
+
+                                                        <strong>
+                                                            @item.KategoriAd
+                                                        </strong>
+
+                                                        kategorisini silmek üzeresiniz.
+
+                                                    </p>
+
+                                                    <small class="text-muted">
+
+                                                        Bu işlem geri alınamaz.
+
+                                                    </small>
+
+                                                </div>
+
+                                                <div class="modal-footer">
+
+                                                    <button type="button"
+                                                            class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">
+
+                                                        Vazgeç
+
+                                                    </button>
+
+                                                    <form asp-action="Delete"
+                                                          method="post">
+
+                                                        @Html.AntiForgeryToken()
+
+                                                        <input type="hidden"
+                                                               name="id"
+                                                               value="@item.Id" />
+
+                                                        <button type="submit"
+                                                                class="btn btn-danger">
+
+                                                            Evet Sil
+
+                                                        </button>
+
+                                                    </form>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+
+                            <td colspan="3"
+                                class="text-center py-5">
+
+                                <div class="text-muted">
+
+                                    <i class="bi bi-folder-x display-5 d-block mb-3"></i>
+
+                                    Henüz kategori eklenmemiş.
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

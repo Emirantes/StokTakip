@@ -1,0 +1,192 @@
+C:\Users\casper\Desktop\StokTakip\StokTakip\StokTakip\Properties\launchSettings.json içindeki başlatma ayarları kullanılıyor...
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (147ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+      FROM [AspNetRoles] AS [a]
+      WHERE [a].[NormalizedName] = @__normalizedName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (126ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+      FROM [AspNetRoles] AS [a]
+      WHERE [a].[NormalizedName] = @__normalizedName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (118ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+      FROM [AspNetRoles] AS [a]
+      WHERE [a].[NormalizedName] = @__normalizedName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (114ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT CASE
+          WHEN EXISTS (
+              SELECT 1
+              FROM [AspNetUsers] AS [a]
+              WHERE [a].[Role] = N'Owner') THEN CAST(1 AS bit)
+          ELSE CAST(0 AS bit)
+      END
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5221
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: C:\Users\casper\Desktop\StokTakip\StokTakip\StokTakip
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (638ms) [Parameters=[@__username_0='?' (Size = 50)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[CompanyId], [a].[ConcurrencyStamp], [a].[CreatedDate], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[IsActive], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[Role], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[Username], [c].[Id], [c].[CompanyCode], [c].[CompanyName], [c].[CreatedDate], [c].[PlanType]
+      FROM [AspNetUsers] AS [a]
+      INNER JOIN [Companies] AS [c] ON [a].[CompanyId] = [c].[Id]
+      WHERE [a].[Username] = @__username_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (102ms) [Parameters=[@__user_Id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+      FROM [AspNetUserClaims] AS [a]
+      WHERE [a].[UserId] = @__user_Id_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (780ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [a0].[Name]
+      FROM [AspNetUserRoles] AS [a]
+      INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+      WHERE [a].[UserId] = @__userId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1,408ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+      FROM [AspNetRoles] AS [a]
+      WHERE [a].[NormalizedName] = @__normalizedName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (122ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [a].[ClaimType], [a].[ClaimValue]
+      FROM [AspNetRoleClaims] AS [a]
+      WHERE [a].[RoleId] = @__role_Id_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (165ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 100), @p2='?' (Size = 500), @p3='?' (Size = 50), @p4='?' (Size = 20), @p5='?' (DbType = DateTime2), @p6='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SET IMPLICIT_TRANSACTIONS OFF;
+      SET NOCOUNT ON;
+      INSERT INTO [Logs] ([CompanyId], [IpAddress], [Islem], [KullaniciAdi], [Rol], [Tarih], [UserId])
+      OUTPUT INSERTED.[Id]
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+warn: Microsoft.EntityFrameworkCore.Query[10103]
+      The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (107ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentCompanyId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) COUNT(*) AS [TotalProduct], COUNT(CASE
+          WHEN COALESCE([t].[Stock], 0) <= [t].[CriticalStock] THEN 1
+      END) AS [CriticalStock], COALESCE(SUM(COALESCE([t].[Price], 0.0) * CAST(COALESCE([t].[Stock], 0) AS decimal(18,2))), 0.0) AS [TotalStockValue]
+      FROM (
+          SELECT [p].[CriticalStock], [p].[Price], [p].[Stock], 1 AS [Key]
+          FROM [Products] AS [p]
+          WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [p].[CompanyId] = @__ef_filter__CurrentCompanyId_1 AND [p].[IsActive] = CAST(1 AS bit)
+      ) AS [t]
+      GROUP BY [t].[Key]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (102ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentCompanyId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*)
+      FROM [Kategoriler] AS [k]
+      WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [k].[CompanyId] = @__ef_filter__CurrentCompanyId_1 AND [k].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (116ms) [Parameters=[@__p_0='?' (DbType = Int32), @__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentCompanyId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(@__p_0) [l].[Id], [l].[CompanyId], [l].[IpAddress], [l].[Islem], [l].[KullaniciAdi], [l].[Rol], [l].[Tarih], [l].[UserId]
+      FROM [Logs] AS [l]
+      WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [l].[CompanyId] = @__ef_filter__CurrentCompanyId_1
+      ORDER BY [l].[Tarih] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (82ms) [Parameters=[@__companyId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CompanyCode], [c].[CompanyName], [c].[CreatedDate], [c].[PlanType]
+      FROM [Companies] AS [c]
+      WHERE [c].[Id] = @__companyId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (140ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentCompanyId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) COUNT(*) AS [TotalProduct], COUNT(CASE
+          WHEN COALESCE([t].[Stock], 0) <= [t].[CriticalStock] THEN 1
+      END) AS [CriticalStock], COALESCE(SUM(COALESCE([t].[Price], 0.0) * CAST(COALESCE([t].[Stock], 0) AS decimal(18,2))), 0.0) AS [TotalStockValue]
+      FROM (
+          SELECT [p].[CriticalStock], [p].[Price], [p].[Stock], 1 AS [Key]
+          FROM [Products] AS [p]
+          WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [p].[CompanyId] = @__ef_filter__CurrentCompanyId_1 AND [p].[IsActive] = CAST(1 AS bit)
+      ) AS [t]
+      GROUP BY [t].[Key]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (112ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentCompanyId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*)
+      FROM [Kategoriler] AS [k]
+      WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [k].[CompanyId] = @__ef_filter__CurrentCompanyId_1 AND [k].[IsActive] = CAST(1 AS bit)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (149ms) [Parameters=[@__p_0='?' (DbType = Int32), @__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentCompanyId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(@__p_0) [l].[Id], [l].[CompanyId], [l].[IpAddress], [l].[Islem], [l].[KullaniciAdi], [l].[Rol], [l].[Tarih], [l].[UserId]
+      FROM [Logs] AS [l]
+      WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [l].[CompanyId] = @__ef_filter__CurrentCompanyId_1
+      ORDER BY [l].[Tarih] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (130ms) [Parameters=[@__companyId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CompanyCode], [c].[CompanyName], [c].[CreatedDate], [c].[PlanType]
+      FROM [Companies] AS [c]
+      WHERE [c].[Id] = @__companyId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (724ms) [Parameters=[@__companyId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [c].[Id], [c].[CompanyCode], [c].[CompanyName], [c].[CreatedDate], [c].[PlanType]
+      FROM [Companies] AS [c]
+      WHERE [c].[Id] = @__companyId_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (135ms) [Parameters=[@__companyId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [a].[Id], [a].[AccessFailedCount], [a].[CompanyId], [a].[ConcurrencyStamp], [a].[CreatedDate], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[IsActive], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[Role], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[Username]
+      FROM [AspNetUsers] AS [a]
+      WHERE [a].[CompanyId] = @__companyId_0 AND [a].[IsActive] = CAST(1 AS bit)
+      ORDER BY [a].[Id] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (128ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentCompanyId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*)
+      FROM [Products] AS [p]
+      WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [p].[CompanyId] = @__ef_filter__CurrentCompanyId_1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (125ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentCompanyId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*)
+      FROM [Kategoriler] AS [k]
+      WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [k].[CompanyId] = @__ef_filter__CurrentCompanyId_1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (174ms) [Parameters=[@__p_0='?' (DbType = Int32), @__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentCompanyId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(@__p_0) [l].[Id], [l].[CompanyId], [l].[IpAddress], [l].[Islem], [l].[KullaniciAdi], [l].[Rol], [l].[Tarih], [l].[UserId]
+      FROM [Logs] AS [l]
+      WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [l].[CompanyId] = @__ef_filter__CurrentCompanyId_1
+      ORDER BY [l].[Tarih] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (114ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentCompanyId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [k].[Id], [k].[Aciklama], [k].[CompanyId], [k].[CreatedDate], [k].[IsActive], [k].[KategoriAd]
+      FROM [Kategoriler] AS [k]
+      WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [k].[CompanyId] = @__ef_filter__CurrentCompanyId_1 AND [k].[IsActive] = CAST(1 AS bit)
+      ORDER BY [k].[KategoriAd]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (142ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentCompanyId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [k].[Id], [k].[Aciklama], [k].[CompanyId], [k].[CreatedDate], [k].[IsActive], [k].[KategoriAd]
+      FROM [Kategoriler] AS [k]
+      WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [k].[CompanyId] = @__ef_filter__CurrentCompanyId_1 AND [k].[IsActive] = CAST(1 AS bit)
+      ORDER BY [k].[KategoriAd]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (164ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentCompanyId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CompanyId], [p].[CreatedByUserId], [p].[CreatedDate], [p].[CriticalStock], [p].[IsActive], [p].[KategoriId], [p].[Name], [p].[Price], [p].[Stock], [p].[StockType], [p].[UserId], [t].[Id], [t].[Aciklama], [t].[CompanyId], [t].[CreatedDate], [t].[IsActive], [t].[KategoriAd]
+      FROM [Products] AS [p]
+      LEFT JOIN (
+          SELECT [k].[Id], [k].[Aciklama], [k].[CompanyId], [k].[CreatedDate], [k].[IsActive], [k].[KategoriAd]
+          FROM [Kategoriler] AS [k]
+          WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [k].[CompanyId] = @__ef_filter__CurrentCompanyId_1
+      ) AS [t] ON [p].[KategoriId] = [t].[Id]
+      WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [p].[CompanyId] = @__ef_filter__CurrentCompanyId_1 AND [p].[IsActive] = CAST(1 AS bit)
+      ORDER BY [p].[CreatedDate] DESC
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (141ms) [Parameters=[@__ef_filter__p_0='?' (DbType = Boolean), @__ef_filter__CurrentCompanyId_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [p].[Id], [p].[CompanyId], [p].[CreatedByUserId], [p].[CreatedDate], [p].[CriticalStock], [p].[IsActive], [p].[KategoriId], [p].[Name], [p].[Price], [p].[Stock], [p].[StockType], [p].[UserId], [t].[Id], [t].[Aciklama], [t].[CompanyId], [t].[CreatedDate], [t].[IsActive], [t].[KategoriAd]
+      FROM [Products] AS [p]
+      LEFT JOIN (
+          SELECT [k].[Id], [k].[Aciklama], [k].[CompanyId], [k].[CreatedDate], [k].[IsActive], [k].[KategoriAd]
+          FROM [Kategoriler] AS [k]
+          WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [k].[CompanyId] = @__ef_filter__CurrentCompanyId_1
+      ) AS [t] ON [p].[KategoriId] = [t].[Id]
+      WHERE @__ef_filter__p_0 = CAST(1 AS bit) AND [p].[CompanyId] = @__ef_filter__CurrentCompanyId_1 AND [p].[IsActive] = CAST(1 AS bit) AND COALESCE([p].[Stock], 0) <= [p].[CriticalStock]
+      ORDER BY [p].[Stock]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (150ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[CompanyId], [a].[ConcurrencyStamp], [a].[CreatedDate], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[IsActive], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[Role], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[Username], [c].[Id], [c].[CompanyCode], [c].[CompanyName], [c].[CreatedDate], [c].[PlanType]
+      FROM [AspNetUsers] AS [a]
+      INNER JOIN [Companies] AS [c] ON [a].[CompanyId] = [c].[Id]
+      WHERE [a].[Id] = @__userId_0

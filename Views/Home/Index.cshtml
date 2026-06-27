@@ -1,0 +1,288 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid mt-4">
+
+    <!-- HEADER -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+                Dashboard
+            </h2>
+
+            <p class="text-muted mb-0">
+                Hoş geldiniz,
+                <strong>@Context.Session.GetString("Username")</strong>
+            </p>
+
+        </div>
+
+        <div class="text-end">
+
+            @if ((string?)ViewBag.PlanType == "Personal")
+            {
+                <div class="small text-muted">
+                    Bireysel Hesap
+                </div>
+            }
+            else
+            {
+                <div class="small text-muted">
+                    Şirket
+                </div>
+            }
+
+            <div class="fw-bold">
+                @ViewBag.CompanyName
+            </div>
+
+            <div class="mt-2">
+
+                <span class="badge bg-dark px-3 py-2">
+
+                    Davet Kodu:
+                    @ViewBag.CompanyCode
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- İSTATİSTİKLER -->
+
+    <div class="row g-4 mb-4">
+
+        <!-- TOPLAM ÜRÜN -->
+
+        <div class="col-md-3">
+
+            <div class="card bg-primary text-white border-0 shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <div class="text-uppercase small opacity-75">
+                                Toplam Ürün
+                            </div>
+
+                            <h2 class="fw-bold mb-0">
+                                @ViewBag.ToplamUrun
+                            </h2>
+
+                        </div>
+
+                        <i class="bi bi-box-seam fs-1 opacity-75"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- KATEGORİ -->
+
+        <div class="col-md-3">
+
+            <div class="card bg-success text-white border-0 shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <div class="text-uppercase small opacity-75">
+                                Kategori
+                            </div>
+
+                            <h2 class="fw-bold mb-0">
+                                @ViewBag.KategoriSayisi
+                            </h2>
+
+                        </div>
+
+                        <i class="bi bi-tags fs-1 opacity-75"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- KRİTİK STOK -->
+
+        <div class="col-md-3">
+
+            <div class="card bg-danger text-white border-0 shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <div class="text-uppercase small opacity-75">
+                                Kritik Stok
+                            </div>
+
+                            <h2 class="fw-bold mb-0">
+                                @ViewBag.KritikStok
+                            </h2>
+
+                        </div>
+
+                        <i class="bi bi-exclamation-triangle fs-1 opacity-75"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- STOK DEĞERİ -->
+
+        <div class="col-md-3">
+
+            <div class="card bg-warning border-0 shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <div class="text-uppercase small text-dark">
+                                Toplam Değer
+                            </div>
+
+                            <h4 class="fw-bold mb-0 text-dark">
+                                @string.Format("{0:₺#,##0.00}", ViewBag.ToplamStokDegeri ?? 0)
+                            </h4>
+
+                        </div>
+
+                        <i class="bi bi-cash-stack fs-1 text-dark opacity-75"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- SON İŞLEMLER -->
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-white py-3">
+
+            <h5 class="mb-0 fw-bold">
+
+                <i class="bi bi-clock-history me-2"></i>
+
+                Son İşlemler
+
+            </h5>
+
+        </div>
+
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>İşlem</th>
+
+                            <th>Kullanıcı</th>
+
+                            <th>Rol</th>
+
+                            <th>Tarih</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @if (ViewBag.SonIslemler != null &&
+                                                ViewBag.SonIslemler.Count > 0)
+                        {
+                            foreach (var log in ViewBag.SonIslemler)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @log.Islem
+                                    </td>
+
+                                    <td>
+                                        @(log.KullaniciAdi ?? "-")
+                                    </td>
+
+                                    <td>
+
+                                        <span class="badge bg-secondary">
+
+                                            @(log.Rol ?? "-")
+
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+                                        @log.Tarih.ToString("dd.MM.yyyy HH:mm")
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+
+                                <td colspan="4"
+                                    class="text-center py-5 text-muted">
+
+                                    Henüz işlem kaydı bulunmuyor.
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

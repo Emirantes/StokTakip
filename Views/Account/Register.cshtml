@@ -1,0 +1,447 @@
+﻿@model StokTakip.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1" />
+
+    <title>Kayıt Ol</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+
+    <style>
+
+        body {
+            margin: 0;
+            background: #f4f6f9;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .left-panel {
+            width: 45%;
+            background: #111827;
+            color: white;
+            padding: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+            .left-panel h1 {
+                font-size: 42px;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+
+            .left-panel p {
+                color: #cbd5e1;
+                line-height: 1.8;
+            }
+
+        .feature-box {
+            background: rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 15px;
+        }
+
+        .right-panel {
+            width: 55%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .register-card {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+
+        .form-control {
+            height: 48px;
+            border-radius: 10px;
+        }
+
+        .btn-register {
+            height: 48px;
+            border-radius: 10px;
+        }
+
+        .switch-btns {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+            .switch-btns button {
+                flex: 1;
+                height: 45px;
+                border: none;
+                border-radius: 10px;
+                font-weight: 600;
+            }
+
+        .active-mode {
+            background: #111827;
+            color: white;
+        }
+
+        .passive-mode {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        @@media (max-width: 992px) {
+
+            .left-panel {
+                display: none;
+            }
+
+            .right-panel {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="main-container">
+
+        <div class="left-panel">
+
+            <h1>Stok Takip Sistemi</h1>
+
+            <p>
+                Kendi ekibinizi oluşturun, çalışanlarınızı davet edin
+                ve tüm stoklarınızı tek panelden yönetin.
+            </p>
+
+            <div class="feature-box">
+                <i class="bi bi-box-seam me-2"></i>
+                Ürün ve Stok Yönetimi
+            </div>
+
+            <div class="feature-box">
+                <i class="bi bi-people me-2"></i>
+                Çok Kullanıcılı Şirket Sistemi
+            </div>
+
+            <div class="feature-box">
+                <i class="bi bi-shield-check me-2"></i>
+                Güvenli Owner Paneli
+            </div>
+
+        </div>
+
+        <div class="right-panel">
+
+            <div class="register-card">
+
+                <div class="text-center mb-4">
+
+                    <i class="bi bi-person-plus"
+                       style="font-size:60px;color:#111827;"></i>
+
+                    <h3 class="fw-bold mt-3">
+                        Hesap Oluştur
+                    </h3>
+
+                    <p class="text-muted">
+                        Yeni şirket oluştur veya mevcut şirkete katıl
+                    </p>
+
+                </div>
+
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @TempData["Error"]
+                    </div>
+                }
+
+                <form asp-action="Register" method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden"
+                           id="registerType"
+                           name="registerType"
+                           value="newCompany" />
+
+                    <!-- KULLANIM TÜRÜ -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Kullanım Türü
+                        </label>
+
+                        <select id="systemType"
+                                name="systemType"
+                                class="form-select">
+
+                            <option value="Personal">
+                                Bireysel Kullanım
+                            </option>
+
+                            <option value="Team">
+                                Takım / Şirket
+                            </option>
+
+                            <option value="Enterprise">
+                                Enterprise
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- TEAM BUTTONS -->
+
+                    <div class="switch-btns"
+                         id="teamButtons"
+                         style="display:none;">
+
+                        <button type="button"
+                                id="btnYeniSirket"
+                                class="active-mode">
+
+                            Yeni Şirket
+
+                        </button>
+
+                        <button type="button"
+                                id="btnDavet"
+                                class="passive-mode">
+
+                            Davet Kodu
+
+                        </button>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Ad Soyad
+                        </label>
+
+                        <input asp-for="FullName"
+                               class="form-control"
+                               placeholder="Ad Soyad giriniz" />
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Kullanıcı Adı
+                        </label>
+
+                        <input asp-for="Username"
+                               class="form-control"
+                               placeholder="Kullanıcı adı giriniz" />
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Email
+                        </label>
+
+                        <input asp-for="Email"
+                               type="email"
+                               class="form-control"
+                               placeholder="ornek@mail.com" />
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Şifre
+                        </label>
+
+                        <input asp-for="Password"
+                               type="password"
+                               class="form-control"
+                               placeholder="Şifre giriniz" />
+
+                    </div>
+
+                    <!-- YENİ ŞİRKET -->
+
+                    <div id="companyArea"
+                         style="display:none;">
+
+                        <div class="alert alert-dark">
+
+                            Yeni şirket oluşturulacak.
+                            Otomatik davet kodu üretilecek.
+
+                        </div>
+
+                    </div>
+
+                    <!-- DAVET -->
+
+                    <div id="inviteArea"
+                         style="display:none;">
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Davet Kodu
+                            </label>
+
+                            <input type="text"
+                                   name="inviteCode"
+                                   class="form-control"
+                                   placeholder="Şirket davet kodu girin" />
+
+                        </div>
+
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-dark btn-register w-100 mb-3">
+
+                        <i class="bi bi-check-circle me-2"></i>
+                        Kayıt Ol
+
+                    </button>
+
+                    <a asp-action="Login"
+                       class="btn btn-outline-secondary w-100">
+
+                        Giriş Yap
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const systemType =
+            document.getElementById('systemType');
+
+        const teamButtons =
+            document.getElementById('teamButtons');
+
+        const btnYeniSirket =
+            document.getElementById('btnYeniSirket');
+
+        const btnDavet =
+            document.getElementById('btnDavet');
+
+        const companyArea =
+            document.getElementById('companyArea');
+
+        const inviteArea =
+            document.getElementById('inviteArea');
+
+        const registerType =
+            document.getElementById('registerType');
+
+        // SAYFA İLK AÇILIŞ
+        updateSystemType();
+
+        // SYSTEM TYPE
+        systemType.addEventListener('change', function () {
+
+            updateSystemType();
+
+        });
+
+        function updateSystemType()
+        {
+            // PERSONAL
+            if (systemType.value === "Personal")
+            {
+                teamButtons.style.display = "none";
+
+                companyArea.style.display = "none";
+
+                inviteArea.style.display = "none";
+            }
+
+            // TEAM
+            else
+            {
+                teamButtons.style.display = "flex";
+
+                companyArea.style.display = "block";
+
+                inviteArea.style.display = "none";
+
+                registerType.value = "newCompany";
+            }
+        }
+
+        // YENİ ŞİRKET
+        btnYeniSirket.addEventListener('click', function () {
+
+            registerType.value = 'newCompany';
+
+            companyArea.style.display = 'block';
+
+            inviteArea.style.display = 'none';
+
+            btnYeniSirket.className = 'active-mode';
+
+            btnDavet.className = 'passive-mode';
+
+        });
+
+        // DAVET
+        btnDavet.addEventListener('click', function () {
+
+            registerType.value = 'invite';
+
+            companyArea.style.display = 'none';
+
+            inviteArea.style.display = 'block';
+
+            btnYeniSirket.className = 'passive-mode';
+
+            btnDavet.className = 'active-mode';
+
+        });
+
+    </script>
+
+</body>
+</html>

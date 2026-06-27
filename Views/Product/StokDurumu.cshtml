@@ -1,0 +1,26 @@
+﻿@model IEnumerable<StokTakip.Models.Product>
+@{
+    ViewData["Title"] = "Kritik Stok Uyarısı";
+}
+
+<div class="alert alert-warning border-0 shadow-sm d-flex align-items-center">
+    <i class="bi bi-exclamation-triangle-fill fs-3 me-3"></i>
+    <div>
+        <strong>Dikkat!</strong> Aşağıdaki ürünler belirlenen kritik stok seviyesinin (10 adet) altına düşmüştür.
+    </div>
+</div>
+
+<div class="row mt-4">
+    @foreach (var product in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card border-start border-danger border-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">Kalan Stok: <span class="badge bg-danger">@product.Stock</span></p>
+                    <a href="/Product/Edit/@product.Id" class="btn btn-sm btn-dark w-100">Stok Güncelle</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

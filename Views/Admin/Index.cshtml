@@ -1,0 +1,353 @@
+﻿@model IEnumerable<StokTakip.Models.User>
+
+@{
+    ViewData["Title"] = "Kullanıcı Yönetimi";
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+
+    <div>
+
+        <h2 class="fw-bold mb-1">
+            Kullanıcı Yönetimi
+        </h2>
+
+        <p class="text-muted mb-0">
+            Şirket kullanıcılarını, rolleri ve davet kodunu yönetin
+        </p>
+
+        @if ((string?)ViewBag.CompanyCode != "-")
+        {
+            <div class="mt-2">
+                <span class="badge bg-dark">
+                    Davet Kodu: @ViewBag.CompanyCode
+                </span>
+            </div>
+        }
+
+    </div>
+
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+
+        <i class="bi bi-check-circle-fill me-2"></i>
+
+        @TempData["Success"]
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+        @TempData["Error"]
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+
+    </div>
+}
+
+<div class="row g-4 mb-4">
+
+    <div class="col-md-4">
+
+        <div class="card shadow-sm border-0 h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Toplam Kullanıcı
+                </h6>
+
+                <h2 class="fw-bold">
+                    @ViewBag.ToplamKullanici
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card shadow-sm border-0 h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Toplam Ürün
+                </h6>
+
+                <h2 class="fw-bold">
+                    @ViewBag.ToplamUrun
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card shadow-sm border-0 h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Toplam Kategori
+                </h6>
+
+                <h2 class="fw-bold">
+                    @ViewBag.ToplamKategori
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+
+                <h4 class="fw-bold mb-1">
+                    Kullanıcı Listesi
+                </h4>
+
+                <p class="text-muted mb-0">
+                    Sistemde kayıtlı kullanıcılar
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table align-middle table-hover">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Kullanıcı</th>
+
+                        <th>Email</th>
+
+                        <th>Kayıt Tarihi</th>
+
+                        <th>Rol</th>
+
+                        <th class="text-center">
+                            İşlem
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @if (Model.Any())
+                    {
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    #@user.Id
+                                </td>
+
+                                <td>
+
+                                    <div class="fw-semibold">
+                                        @user.Username
+                                    </div>
+
+                                    <small class="text-muted">
+                                        @user.FullName
+                                    </small>
+
+                                </td>
+
+                                <td>
+                                    @user.Email
+                                </td>
+
+                                <td>
+                                    @user.CreatedDate.ToString("dd.MM.yyyy")
+                                </td>
+
+                                <td>
+
+                                    @if (user.Role == "Owner")
+                                    {
+                                        <span class="badge bg-warning text-dark">
+                                            Owner
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <form asp-action="ChangeRole"
+                                              method="post"
+                                              class="d-flex gap-2">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <input type="hidden"
+                                                   name="id"
+                                                   value="@user.Id" />
+
+                                            <select name="role"
+                                                    class="form-select form-select-sm">
+
+                                                <option value="Admin"
+                                                        selected="@(user.Role == "Admin" ? "selected" : null)">
+                                                    Admin
+                                                </option>
+
+                                                <option value="Personel"
+                                                        selected="@(user.Role == "Personel" ? "selected" : null)">
+                                                    Personel
+                                                </option>
+
+                                            </select>
+
+                                            <button type="submit"
+                                                    class="btn btn-outline-primary btn-sm">
+                                                Kaydet
+                                            </button>
+
+                                        </form>
+                                    }
+
+                                </td>
+
+                                <td class="text-center">
+
+                                    @if (user.Role != "Owner")
+                                    {
+                                        <form asp-action="DeleteUser"
+                                              method="post"
+                                              class="delete-user-form">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <input type="hidden"
+                                                   name="id"
+                                                   value="@user.Id" />
+
+                                            <input type="hidden"
+                                                   class="username"
+                                                   value="@user.Username" />
+
+                                            <button type="submit"
+                                                    class="btn btn-danger btn-sm">
+
+                                                <i class="bi bi-trash me-1"></i>
+                                                Sil
+
+                                            </button>
+
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">
+                                            Korumalı
+                                        </span>
+                                    }
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+
+                            <td colspan="6" class="text-center py-4">
+
+                                <div class="text-muted">
+
+                                    <i class="bi bi-people fs-2 d-block mb-2"></i>
+
+                                    Kayıtlı kullanıcı bulunamadı.
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script>
+        document.querySelectorAll(".delete-user-form")
+            .forEach(form => {
+
+                form.addEventListener("submit", function (e) {
+
+                    e.preventDefault();
+
+                    const username =
+                        form.querySelector(".username").value;
+
+                    Swal.fire({
+                        title: "Kullanıcı Pasifleştirilecek",
+                        text: username + " kullanıcısı pasifleştirilecek.",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Evet",
+                        cancelButtonText: "Vazgeç",
+                        reverseButtons: true
+                    }).then((result) => {
+
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+
+                    });
+
+                });
+
+            });
+    </script>
+}
